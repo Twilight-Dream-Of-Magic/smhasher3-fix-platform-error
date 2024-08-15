@@ -133,7 +133,7 @@ static HashMapOrder defaultSort( HashMap & map ) {
                 return a->isCrypto();
             }
             // Then sort by family (case-insensitive)
-            if ((r = strcasecmp(a->family, b->family)) != 0) {
+            if ((r = custom_strncasecmp(a->family, b->family)) != 0) {
                 return r < 0;
             }
             // Then by hash output size (smaller first)
@@ -145,7 +145,7 @@ static HashMapOrder defaultSort( HashMap & map ) {
                 return a->sort_order < b->sort_order;
             }
             // And finally by hash name (case-insensitive)
-            if ((r = strcasecmp(a->name, b->name)) != 0) {
+            if ((r = custom_strncasecmp(a->name, b->name)) != 0) {
                 return r < 0;
             }
             return false;

@@ -53,6 +53,7 @@ set(HASH_SRC_FILES
   hashes/aesnihash-peterrk.cpp
   hashes/md5.cpp
   hashes/murmurhash3.cpp
+  hashes/museair.cpp
   hashes/mx3.cpp
   hashes/crc.cpp
   hashes/rapidhash.cpp

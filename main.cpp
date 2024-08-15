@@ -60,6 +60,7 @@
  *     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  *     OTHER DEALINGS IN THE SOFTWARE.
  */
+
 #include "Platform.h"
 #include "Timing.h"
 #include "Hashlib.h"
@@ -101,6 +102,25 @@
 #include <ctime>
 #include <cerrno>
 #include <clocale>
+#include <cctype>
+
+// Custom function to perform case-insensitive comparison of the first `n` characters
+int custom_strncasecmp(const char *s1, const char *s2, size_t n) {
+    while (n && *s1 && *s2) {
+        char c1 = std::tolower(static_cast<unsigned char>(*s1));
+        char c2 = std::tolower(static_cast<unsigned char>(*s2));
+        if (c1 != c2) {
+            return c1 - c2;
+        }
+        ++s1;
+        ++s2;
+        --n;
+    }
+    if (n == 0) {
+        return 0;
+    }
+    return std::tolower(static_cast<unsigned char>(*s1)) - std::tolower(static_cast<unsigned char>(*s2));
+}
 
 //-----------------------------------------------------------------------------
 // Locally-visible configuration
@@ -204,7 +224,7 @@ static void parse_tests( const char * str, bool enable_tests ) {
             const char * testname = g_testopts[i].name;
             // Allow the user to specify test names by case-agnostic
             // unique prefix.
-            if (strncasecmp(str, testname, len) == 0) {
+            if (custom_strncasecmp(str, testname, len) == 0) {
                 if (found != NULL) {
                     foundmultiple = true;
                 }

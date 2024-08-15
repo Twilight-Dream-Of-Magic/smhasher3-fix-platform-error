@@ -19,6 +19,7 @@
 #include "Hashinfo.h"
 
 #include <vector>
+#include <cctype>
 
 // Interface for hash implementations
 unsigned register_hash( const HashInfo * hinfo );
@@ -60,3 +61,24 @@ bool verifyHash( const HashInfo * hinfo, enum HashInfo::endianness endian, bool 
 #define USE_FAMILY(N)               \
     extern unsigned CONCAT(N,_ref); \
     CONCAT(N,_ref) = 1
+    
+ // Function to perform case-insensitive string comparison
+inline int custom_strncasecmp(const char *s1, const char *s2) {
+    while (*s1 && *s2) {
+        int d = std::tolower(*s1) - std::tolower(*s2);
+        if (d != 0) {
+            return d;
+        }
+        ++s1;
+        ++s2;
+    }
+    return std::tolower(*s1) - std::tolower(*s2);
+}
+
+inline char* strdup(const char* str) {
+    if (!str) return nullptr;
+    size_t len = std::strlen(str) + 1;
+    char* copy = new char[len];
+    std::memcpy(copy, str, len);
+    return copy;
+}

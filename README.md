@@ -27,7 +27,7 @@ SMHasher3 is a tool for testing the quality of [hash
 functions](https://en.wikipedia.org/wiki/Hash_function) in terms of their
 distribution, collision, and performance properties. It constructs sets of hash keys,
 passes them through the hash function to test, and analyzes their outputs in numerous
-ways. It also does some performance testing of the hash function.
+ways. It also does some performance testing of the hash function. 
 
 SMHasher3 is based on [the SMHasher fork maintained by Reini
 Urban](https://github.com/rurban/smhasher), which is in turn based on
@@ -64,6 +64,8 @@ Additional significant changes include:
 
 Current status
 --------------
+
+**Fix Windows Compilation Error (Twilight-Dream Date: 2024-08-15)**
 
 As of 2023-12-12, SMHasher3 beta3 has been released.
 

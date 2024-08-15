@@ -94,10 +94,19 @@ static inline void recordTestResult( bool pass, const char * suitename, const ch
     }
     g_testFail++;
 
+	auto strdup_func = [](const char* str) -> char*
+	{
+		if (!str) return nullptr;
+		size_t len = std::strlen(str) + 1;
+		char* copy = new char[len];
+		std::memcpy(copy, str, len);
+		return copy;
+	};
+
     char * ntestname = NULL;
     if (testname != NULL) {
         testname += strspn(testname, " ");
-        ntestname = strdup(testname);
+        ntestname = strdup_func(testname);
         if (!ntestname) {
             printf("OOM\n");
             exit(1);
